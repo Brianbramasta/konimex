@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-const Button = ({ 
+export const Button = ({ 
   children, 
   type = 'button', 
   variant = 'primary', 
