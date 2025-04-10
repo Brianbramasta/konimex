@@ -1,0 +1,218 @@
+﻿A. Halaman Awal & Utama
+1. Halaman Login [source: 1]
+   * Detail Pekerjaan: Login menggunakan email valid dan password.
+   * Rules:
+      * User yang dapat login adalah karyawan dari Master Karyawan yang tercentang akses loginnya.
+      * Jika login berhasil: cek apakah user memiliki akses >1 cabang.
+      * Jika >1 cabang: direct ke halaman Pilih Cabang.
+      * Jika hanya 1 cabang: direct ke Dashboard.
+2. Halaman Pilih Cabang (Jika user punya >1 akses cabang) [source: 2]
+   * Detail Pekerjaan: Menampilkan pilihan cabang yang mau dibuka datanya.
+   * Rules:
+      * Pilihan cabang yang tampil sesuai dengan hak akses user yang login.
+3. Halaman Dashboard [source: 2]
+   * Detail Pekerjaan: Berisi teks selamat datang untuk nama user yang login.
+   * Rules: (Tidak ada rules spesifik tercantum, selain aturan masuk dari halaman Login)
+B. Area Master Data (Menu Utama: Master Data)
+1. Master Cabang [source: 2] 
+   * Halaman List Cabang: Terdapat fitur filter dan search box, ada button “Tambah Cabang”
+   * Halaman Add/Edit Cabang:
+      * Rules: Pengecekan kode cabang harus unik. Bisa diatur status Aktif/Tidak Aktif. Cabang dengan status tidak aktif tidak muncul di dropdown
+      * Hanya Super Admin yang bisa menambah/edit cabang
+   * Aksi Delete Cabang:
+      * Rules: Dapat dihapus jika tidak ada data yang berelasi.
+2. Master Role/Jabatan [source: 2]
+   * Halaman List Role: Terdapat fitur Filter dan search box. ada button ‘Tambah Role”
+   * Halaman Add/Edit Role: Input nama, status aktif/tidak, pengaturan hak akses menu.
+      * Rules: Akses untuk menu pesanan bisa diatur detail (per inputan biaya, approval DN/LN).
+   * Aksi Delete Role:
+      * Rules: Dapat dihapus jika tidak ada data yang berelasi.
+3. Master Karyawan [source: 3]
+   * Halaman List Karyawan: Terdapat fitur filter cabang dan status
+   * Halaman Add/Edit Karyawan: Input data (cabang, role, email, gender, akses login, status driver, No. WA, status aktif/tidak).
+      * Rules:
+         * Pengecekan input email harus format valid.
+         * Jika karyawan adalah 'Driver' dan login, di Kalender Jadwal Driver namanya otomatis terpilih & tidak bisa diubah/lihat driver lain.
+         * Input No. WA wajib diisi jika karyawan dicentang sebagai 'Driver'.
+   * Halaman/View History Karyawan: Menampilkan riwayat perubahan data.
+   * Aksi Delete Karyawan:
+      * Rules: 
+         * Dapat dihapus jika tidak ada data yang berelasi.
+         * Karyawan tidak dapat dihapus, hanya dinonaktifkan
+4. Master Hotel [source: 3]
+   * Halaman List Hotel: Terdapat fitur filter.
+   * Halaman Add/Edit Hotel: Input data (kode, nama, status aktif/tidak).
+      * Rules : 
+         * Hotel yang tidak aktif tidak muncul di dropdown pemesanan.
+   * Aksi Delete Hotel:
+      * Rules: 
+         * Dapat dihapus jika tidak ada data yang berelasi 
+5. Master Tipe Kamar [source: 4]
+   * Halaman List Tipe Kamar: Terdapat fitur filter dan search box.
+   * Halaman Add/Edit Tipe Kamar: Input data (kode, tipe, pilih hotel, harga, kapasitas, status aktif/tidak). ada filed multi-select hotel (bisa lebih dari 1)
+   * Aksi Delete Tipe Kamar:
+      * Rules: Dapat dihapus jika tidak ada data yang berelasi.
+6. Master Tiket [source: 4]
+   * Halaman List Tiket: Terdapat fitur filter.
+   * Halaman Add/Edit Tiket: Input data (kode, nama, status aktif/tidak).
+      * Rules : Tipe kamar dengan status tidak aktif tidak muncul di dropdown pemesanan
+   * Aksi Delete Tiket:
+      * Rules: Dapat dihapus jika tidak ada data yang berelasi.
+7. Master Jenis Kendaraan [source: 4]
+   * Halaman List Jenis Kendaraan: Terdapat fitur Filter dan search box serta button “tambah” dan “edit” untuk jenis kendaraan.
+   * Halaman Add/Edit Jenis Kendaraan: Input data (kode, jenis, status aktif/tidak).
+      * Rules : Tiket dengan status tidak aktif tidak muncul di dropdown pemesanan
+   * Aksi Delete Jenis Kendaraan:
+      * Rules: Dapat dihapus jika tidak ada data yang berelasi.
+8. Master Kendaraan [source: 4, 5]
+   * Halaman List Kendaraan: Terdapat fitur filter.
+   * Halaman Add/Edit Kendaraan: Input data (pilih cabang, jenis kendaraan, status aktif/tidak).
+   * Aksi Delete Kendaraan:
+      * Rules: Dapat dihapus jika tidak ada data yang berelasi.
+      * Kendaraan dengan cabang tertentu hanya muncul di dropdown cabang tersebut
+9. Master Plafon [source: 5]
+   * Halaman List Plafon: Terdapat fitur Filter dan search box. ada Tab "History" yang menampilkan perubahan nilai plafon per tanggal
+   * Halaman Add/Edit Plafon: Input data (pilih jabatan, jenis tiket/hotel, tanggal berlaku, nominal, status aktif/tidak).
+      * Rules: Plafon memberi estimasi biaya maksimal untuk jabatan dalam 1 tiket/hotel.
+   * Halaman/View History Plafon: Menampilkan riwayat perubahan nominal.
+   * Aksi Delete Plafon:
+      * Rules: Dapat dihapus jika tidak ada data yang berelasi.
+10. Master Kamar Mess [source: 5]
+   * Halaman List Kamar Mess: Terdapat fitur filter.
+   * Halaman Add/Edit Kamar Mess: Input data (pilih cabang, pengaturan gender, kapasitas, status aktif/tidak).
+   * Aksi Delete Kamar Mess:
+      * Rules: Dapat dihapus jika tidak ada data yang berelasi.
+      * gender menentukan penghuni yang diperbolehkan.
+11. Master Kota [source: 5]
+   * Halaman List Kota: Terdapat fitur filter.
+   * Halaman Add/Edit Kota: Input data (kode, nama, status aktif/tidak).
+   * Aksi Delete Kota:
+      * Rules: Dapat dihapus jika tidak ada data yang berelasi.
+   * (Fungsi Inject Data Kota mungkin terpisah di area Admin/Setup) [source: 6]
+12. Master Supplier (Opsional) [source: 6]
+   * Halaman List Supplier: Terdapat fitur filter.
+   * Halaman Add/Edit Supplier: Input data (kode, nama, status aktif/tidak).
+   * Aksi Delete Supplier:
+      * Rules: Dapat dihapus jika tidak ada data yang berelasi.
+C. Area Transaksi & Operasional (Menu Utama)
+1. Pesanan / Permintaan Dinas
+   * Halaman List Pesanan: Tampilan daftar dengan Tab per status, Fitur Filter, fitur pencarian, dan Tombol Aksi (Add, View, Edit, Approval, Set Driver, Selesaikan, Batalkan, Download Template, Import). [sources: 7, 11, 15, 20]
+      * Rules:
+         * Aksi 'Approval' tampil pada status 'Menunggu Persetujuan' -> direct ke halaman Approval.
+         * Aksi 'Set Driver' tampil pada status 'Disetujui, belum Set Driver' -> direct ke halaman Set Driver.
+         * Aksi 'Selesaikan' tampil pada status 'Disetujui, Sudah Set Driver' dan 'Disetujui' -> direct ke halaman Selesaikan Pesanan.
+         * Aksi 'Batalkan' -> tampil popup isi keterangan -> ubah status jadi 'Dibatalkan'
+         * Pembatalan oleh user hanya jika >24 jam dari jadwal
+         * Aksi “Edit” hanya tersedia jika status “menunggu persetujuan”
+   * Halaman Add/Edit Pesanan: Form input/edit (Jenis Tamu/Non Tamu, PIC/Karyawan, Email Info & Evaluasi, Jenis Dinas DN/LN, Permintaan Akomodasi/Tiket/Mobil, Input PB/PUM/PJUM (khusus LN)). [sources: 8, 13, 14, 15, 22, 23, 24]
+      * Rules:
+         * Minimal 1 jenis pesanan harus dipilih
+         * Pilihan karyawan yang tampil adalah dari cabang yang sama dengan user login.
+         * Data baru disimpan statusnya 'Menunggu Persetujuan'.
+         * [Notifikasi Email] Otomatis terkirim ke 'Email Informasi' & 'Email Evaluasi' setelah simpan data baru.
+   * Halaman Approval Pesanan: Menampilkan detail pesananyang perlu disetujui, Kolom input harga (akomodasi/tiket), Tombol Approve/Reject. [sources: 9, 16, 25]
+      * Rules:
+         * Jika Approve & perlu Mobil -> status 'Disetujui, belum Set Driver'.
+         * Jika Approve & tidak perlu Mobil -> status 'Disetujui'.
+         * Jika Reject -> status 'Tidak Disetujui'.
+         * [Notifikasi Email] Otomatis terkirim ke 'Email Informasi' & 'Email Evaluasi' setelah simpan approval (Approve/Reject).
+   * Halaman Set Driver: Menampilkan detail pesanan (khusus yg butuh mobil), Kolom pilih Driver, Tombol Simpan. [sources: 9, 17, 26]
+      * Rules:
+         * Klik simpan -> status pesanan jadi 'Disetujui, sudah Set Driver'.
+         * Klik simpan -> otomatis terbuat data di Penjadwalan Driver.
+         * [Notifikasi WA] Otomatis terkirim ke Driver yang dipilih setelah simpan (format pesan menyusul).
+   * Halaman Selesaikan Pesanan: Menampilkan detail pesanan, Kolom input biaya tambahan, Tombol Simpan. [sources: 10, 18, 27]
+      * Rules:
+         * Klik simpan -> status pesanan jadi 'Selesai'.
+         * Klik simpan -> otomatis terbuat data evaluasi sesuai pesanan (akomodasi/mobil/tiket).
+         * [Notifikasi Email] Otomatis terkirim ke email Non Tamu/PIC untuk pengisian evaluasi setelah status 'Selesai' (format email menyusul).
+   * Halaman View Pesanan: Menampilkan detail pesanan (read-only). [sources: 10, 18, 28]
+   * Halaman pembatalan pesanan : Berisi form pembatalan dengan alasan dan pengelolaan refund. Fitur pencatatan harga tiket asli dan refund jika tiket dibeli
+      * Rules : 
+         * User hanya bisa membatalkan H-1 (>24 jam)
+         * Penalty dihitung dari selisih harga tiket dan refund
+         * Data masuk ke laporan refund jika tiket dibeli
+   * (Fitur Import/Download Template Excel Pesanan): Terdapat pengecekan saat import. [sources: 10, 18, 28]
+   * (Aksi Delete Pesanan): Dapat dihapus jika tidak ada data yang berelasi (jika fitur delete diaktifkan). [sources: 11, 19, 28]
+2. Penjadwalan Driver
+   * Halaman List Jadwal Driver: Tampilan daftar, fitur filter, periode, status jadwal ('Berangkat'/'Datang'). [source: 29]
+      * Rules: 
+         * Status otomatis update sesuai aksi Driver.
+         * Edit hanya untuk jadwal belum "Berangkat"/"Datang"
+   * Halaman View Jadwal Driver: Menampilkan detail pesanan terkait mobil.
+   * Halaman Kalender Jadwal Driver: Pilih Driver, Tampilan Bulan/Minggu/Hari, Info penjemputan/pengantaran (link maps), Tombol Aksi Mulai/Selesaikan Perjalanan. [source: 29, 30]
+      * Rules:
+         * Jika user login adalah Driver, pilihan driver otomatis terisi namanya & tidak bisa diubah.
+         * Klik 'mulai' -> status jadi 'Berangkat', simpan tanggal & jam berangkat.
+         * Klik 'selesai' -> status jadi 'Datang', simpan tanggal & jam datang.
+   * Aksi Delete Jadwal: [source: 29]
+      * Rules: Dapat dihapus jika tidak ada data yang berelasi.
+   * Pas Jalan Digital : Berisi dokumen digital pas jalan untuk driver
+      * Rules : 
+         * Dapat diakses tanpa login via link
+         * Status berubah jadi "Used" setelah digunakan
+         * Wajib ditunjukkan ke satpam sebelum keluar area
+3. Permintaan BBM
+   * Halaman List Permintaan BBM: Tampilan daftar, fitur filter. [source: 30]
+   * Halaman Add/Edit Permintaan BBM: Form input/edit (pilih kendaraan). [source: 30]
+      * Rules : Input berdasarkan nota yang diserahkan driver
+   * Aksi Delete Permintaan BBM: [source: 30]
+      * Rules: Dapat dihapus sewaktu-waktu.
+4. Permintaan Mess
+   * Halaman List Permintaan Mess: Tampilan daftar, fitur filter. [sources: 30, 31]
+   * Halaman Add/Edit Permintaan Mess: Form input/edit (pilih kamar, tanggal/jam, karyawan, output email info/evaluasi). [sources: 31, 32]
+      * Rules:
+         * Validasi total karyawan ≤ kapasitas kamar
+         * Saat save, cek gender karyawan yang dipilih harus sama, jika beda tidak bisa disimpan.
+         * Klik simpan -> status permintaan jadi 'Menunggu Persetujuan'.
+   * Halaman Approval Permintaan Mess: Menampilkan detail, pilihan Approve/Reject (+keterangan). [source: 33]
+      * Rules:
+         * Saat save approval, cek kapasitas kamar pada tanggal/jam permintaan, jika bentrok save gagal.
+         * Jika Approve -> status jadi 'Disetujui'.
+         * Jika Reject -> status jadi 'Tidak Disetujui'.
+   * Halaman View Permintaan Mess: Menampilkan detail (read-only). [source: 33]
+   * Halaman Kalender Jadwal Mess: Pilih Mess, Tampilan Bulan/Minggu/Hari, Info pemakai. [source: 33]
+   * Aksi Delete Permintaan Mess: [source: 33]
+      * Rules: Dapat dihapus sewaktu-waktu.
+   * (Fitur Import/Download Template Excel Mess): Terdapat pengecekan saat import. [source: 32]
+5. Evaluasi (Akomodasi, Driver, Tiket)
+   * Halaman List Evaluasi: List (otomatis terbuat saat pesanan 'Selesai'), fitur filter. [sources: 33, 35, 37]
+      * Rules: Data evaluasi otomatis terbuat ketika status pesanan 'Selesai'.
+   * Halaman Edit Evaluasi: Input nilai, komentar. [sources: 34, 36, 37, 38]
+      * Rules: Rentang nilai 1 (terendah) sampai 5 (tertinggi).
+   * Halaman View Evaluasi: Tampil data evaluasi. [sources: 35, 37, 38]
+   * (Logic Notifikasi Email Reminder): [sources: 35, 37, 38]
+      * Rules:
+         * Jika belum dinilai H+1 setelah notif pertama/status Selesai, kirim ulang notifikasi.
+         * Kirim ulang per hari hingga 3 kali.
+         * Jika H+4 belum dinilai, nilai otomatis terisi angka 3 semua.
+6. Pembelian (Opsional)
+   * Halaman List Pembelian: Tampilan daftar, fitur filter. [source: 38]
+   * Halaman Add/Edit Pembelian: Form input/edit (pilih pesanan, supplier, detail barang hotel/tiket). [source: 38, 39]
+   * Halaman View Pembelian: Menampilkan detail. [source: 39]
+   * Aksi Delete Pembelian: [source: 38]
+      * Rules: Dapat dihapus jika tidak ada data yang berelasi.
+7. Retur Pembelian (Opsional)
+   * Halaman List Retur: Tampilan daftar, fitur filter. [source: 39]
+   * Halaman Add/Edit Retur: Form input/edit (pilih pembelian). [source: 40]
+   * Halaman View Retur: Menampilkan detail. [source: 40]
+   * Aksi Delete Retur: [source: 40]
+      * Rules: Dapat dihapus sewaktu-waktu.
+D. Area Laporan (Menu Utama: Laporan) [sources: 40-43] * Halaman Laporan: Masing-masing laporan memiliki filter (biasanya range tanggal, cabang) dan menampilkan data sesuai deskripsi di PDF. * Rules Spesifik: * Laporan Refund Tiket: Membutuhkan data dari modul Pembelian dan Retur Pembelian. [source: 42] * Laporan Pemakaian Kendaraan: Data diambil dari jadwal driver yang statusnya sudah pernah 'Berangkat'/'Datang'. [source: 43] * Laporan Over Plafon: Menampilkan harga plafon dari Master Plafon. [source: 42]
+E. Area Pengaturan (Menu Utama: Settings/Pengaturan)
+1. Setting Approval Pesanan [source: 43]
+   * Halaman View/Edit: Menampilkan/memilih karyawan approver per cabang.
+   * Rules: Approval untuk pesanan dinas luar negeri dan dalam negeri dibedakan (bisa diatur ke karyawan berbeda).
+2. Setting Approval Permintaan Mess [source: 43, 44]
+   * Halaman View/Edit: Menampilkan/memilih karyawan approver mess per cabang.
+   * Rules: (Tidak ada rules tambahan spesifik selain memilih karyawan approver per cabang).
+F. Elemen Global & Lainnya
+1. Tampilan Umum [source: 1]
+   * Rules: Responsif (HP, Tab, Komputer), Support WebView.
+2. TopBar [source: 1]
+   * Detail: Letak fixed, nama user login, nama cabang aktif, dropdown ganti cabang, opsi logout.
+   * Rules: Dropdown ganti cabang tampil sesuai hak akses user.
+3. Sidebar [source: 1]
+   * Detail: Letak fixed, list menu & submenu, penanda menu aktif.
+4. Akses User [source: 2]
+   * Rules: Penanganan jika user mencoba akses URL menu yang tidak diizinkan (case tembak url/standby).
